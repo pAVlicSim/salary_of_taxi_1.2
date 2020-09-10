@@ -1,0 +1,139 @@
+QMainWindow {
+    background: #BFE4D1;
+    width: 10px; /* when vertical */
+    height: 10px; /* when horizontal */
+}
+
+QFrame {
+    background-color: #BFE4D1;
+    selection-background-color: #70838E;
+    font: bold italic  14px C059;
+    border: 1px solid #759685;
+    border-radius: 4px;
+}
+
+QPushButton, QLabel, QComboBox, QDateEdit{
+    background-color: #B1E4CA;
+}
+
+QDateEdit {
+    selection-background-color: #70838E;
+    font: bold italic  14px C059;
+}
+
+QPushButton {
+    border: 1px solid;
+    border-width: 2px;
+    border-radius: 4px;
+    border-color: #759685;
+    font: bold italic 14px C059;
+    max-width: 5px;
+    padding: 4px;
+}
+
+QPushButton:hover {
+    background-color: #BCD1DE;
+}
+
+QPushButton:pressed {
+    background-color: #AFCDDE;
+    border-style: inset;
+}
+
+QComboBox {
+    selection-background-color: #70838E;
+    font: bold italic 14px C059;
+    border: 1px solid #CFF99E;
+    border-radius: 4px;
+    padding: 1px 18px 1px 3px;
+}
+
+QHeaderView {
+    background-color: #B1E4CA;
+    min-height:30px;
+}
+
+QHeaderView::section {
+    background-color: #B1E4CA;
+}
+
+QTableCornerButton::section {
+ background: #B1E4CA;
+ border: 1px solid #CFF99E;
+}
+
+QTabBar::tab {
+ background: #BCD1DE;
+ font: bold italic 14px C059;
+ border: 1px solid #CFF99E;
+ border-radius: 4px;
+ min-height:120px;
+ min-width:25px;
+}
+
+QTabBar::tab:selected {
+    background: #BFE4D1;
+}
+
+QScrollBar:horizontal {
+    border: 1px solid #759685;
+    background: #BFE4D1;
+    height: 16px;
+    margin: 0px 20px 0 20px;
+}
+
+QScrollBar::add-line:horizontal {
+    background: #CAEDA6;
+    width: 16px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+    border: 1px solid #CFF99E;
+}
+
+QScrollBar::sub-line:horizontal {
+    background: #BFE4D1;
+    width: 16px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+    border: 1px solid #CFF99E;
+}
+
+QScrollBar::left-arrow:horizontal, QScrollBar::right-arrow:horizontal {
+    width: 10px;
+    height: 10px;
+    background: #759685;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: #E3FFB2;
+}
+
+QMenuBar {
+    background-color: #B2FFC0;
+    spacing: 20px; /* spacing between menu bar items */
+}
+
+QMenuBar::item {
+    padding: 4px 8px;
+    background: #B1E4CA;
+    border-radius: 4px;
+}
+
+QMenuBar::item:selected { /* when selected using mouse or keyboard */
+    background: #70838E;
+}
+
+QMenu {
+    background-color: #BFE4D1; /* sets background of the menu */
+    border: 1px solid black;
+}
+
+QMenu::item {
+    /* sets background of menu item. set this to something non-transparent
+        if you want menu color and menu item color to be different */
+    background-color: #B1E4CA;
+}
+
+QMenu::item:selected { /* when user selects item using mouse or keyboard */
+    background-color: #70838E;
+}
