@@ -353,8 +353,7 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.comboBox_selectedMonth.clear()
         self.comboBox_selectedMonth.addItems(name_file)
 
-        # метод добавлят смену в таблицу
-
+    # метод добавлят смену в таблицу
     def addShift_tableShifts(self):
         list_row = []
         for i in range(0, 9):
@@ -365,8 +364,7 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.StIM_shiftsTable.setHorizontalHeaderItem(self.StIM_shiftsTable.columnCount(index) - 1,
                                                       QtGui.QStandardItem(self.dateEdit_shifts.text()))
 
-        #
-
+    #
     def removeShift_tableShifts(self):
         index = self.tableView_shifts.currentIndex()
         if index.isValid():
@@ -412,24 +410,20 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         # расчитываем выплаты и долг
         self.f_salary_dict = {}
         self.payOut_dict = {}
+        salary_list = []
+        payOut_list = []
+        key_dateMonth: str
         name_month = name_month_list('save_dates')  # получаем названия файлов месяцев
         for i in range(len(name_month)):
             dateMonth = load_data_file(name_month[i] + '.txt')
-            salary_list = []
-            payOut_list = []
-            key_dateMonth: str
             for key_dateMonth in dateMonth.keys():
                 salary_list.append(Decimal(dateMonth[key_dateMonth][8]))
                 payOut_list.append(Decimal(dateMonth[key_dateMonth][9]))
-            f_salary_dict = dict(zip(list(self.dateMonth.keys()), salary_list))
-            payOut_dict = dict(zip(list(self.dateMonth.keys()), payOut_list))
-            self.f_salary_dict.update(f_salary_dict)
-            self.payOut_dict.update(payOut_dict)
-            f_salary = sum(self.f_salary_dict.values())
-            payOut = sum(self.payOut_dict.values())
-            self.label_debt.setText(str(f_salary - payOut))
-            self.label_salary.setText(str(f_salary))
-            self.label_payOut.setText(str(payOut))
+        f_salary = Decimal(sum(salary_list))
+        payOut = Decimal(sum(payOut_list))
+        self.label_debt.setText(str(f_salary - payOut))
+        self.label_salary.setText(str(f_salary))
+        self.label_payOut.setText(str(payOut))
 
     def save_dates(self):
         index = QtCore.QModelIndex()
