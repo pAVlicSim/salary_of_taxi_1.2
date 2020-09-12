@@ -26,24 +26,27 @@ def load_data_file(a):
     return b
 
 
+#
 def save_data_files(a, b):
-    f = open('save_dates/' + a, 'wb')
-    pickle.dump(b, f)
-    f.close()
+    f = open('save_dates/' + a, 'wb')  #
+    pickle.dump(b, f)  #
+    f.close()  #
 
 
+#
 def create_dialog_message(a, b, c):
     QtWidgets.QMessageBox.information(a, b, c, defaultButton=QtWidgets.QMessageBox.Ok)
 
 
+#
 def name_month_list(a: str):
-    names_files_list = os.listdir(a)
-    name_file = []
-    for i in range(len(names_files_list)):
-        if re.search('\d+', names_files_list[i]) is not None:
-            name_file.append(names_files_list[i][:-4])
-    name_file.sort()
-    return name_file
+    names_files_list = os.listdir(a)  #
+    name_file = []  #
+    for i in range(len(names_files_list)):  #
+        if re.search('\d+', names_files_list[i]) is not None:  #
+            name_file.append(names_files_list[i][:-4])  #
+    name_file.sort()  #
+    return name_file  #
 
 
 class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
@@ -52,12 +55,12 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.setupUi(self)
 
         # действия для таблицы смен
-        self.action_addShift = QtWidgets.QAction('Добавить смену')
-        self.action_removeShift = QtWidgets.QAction('Удалить смену')
-        self.action_addMonth = QtWidgets.QAction('Добавить месяц')
-        self.action_removeMonth = QtWidgets.QAction('Удалить месяц')
-        self.action_calculationShift = QtWidgets.QAction('Расчитать смену')
-        self.action_saveData = QtWidgets.QAction('Сохранить данные')
+        self.action_addShift = QtWidgets.QAction('Добавить смену')  #
+        self.action_removeShift = QtWidgets.QAction('Удалить смену')  #
+        self.action_addMonth = QtWidgets.QAction('Добавить месяц')  #
+        self.action_removeMonth = QtWidgets.QAction('Удалить месяц')  #
+        self.action_calculationShift = QtWidgets.QAction('Расчитать смену')  #
+        self.action_saveData = QtWidgets.QAction('Сохранить данные')  #
 
         # подключаем действия к таблице
         self.tableView_shifts.addAction(self.action_addShift)
@@ -68,9 +71,9 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.tableView_shifts.addAction(self.action_saveData)
 
         # действия для comboBox_setting
-        self.action_addTariff = QtWidgets.QAction('Добавить тариф')
-        self.action_removeTariff = QtWidgets.QAction('Удалить тариф')
-        self.action_saveTariffName = QtWidgets.QAction('Сохранить название тарифа')
+        self.action_addTariff = QtWidgets.QAction('Добавить тариф')  #
+        self.action_removeTariff = QtWidgets.QAction('Удалить тариф')  #
+        self.action_saveTariffName = QtWidgets.QAction('Сохранить название тарифа')  #
 
         # добавляем действия в comboBox
         self.comboBox_selectTariff.addAction(self.action_addTariff)
@@ -78,10 +81,10 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.comboBox_selectTariff.addAction(self.action_saveTariffName)
 
         # действия для таблицы настроек
-        self.action_addRow = QtWidgets.QAction('Добавить строку')
-        self.action_removeRow = QtWidgets.QAction('Удалить строку')
-        self.action_saveTariff = QtWidgets.QAction('Сохранить тариф')
-        self.action_saveSettings = QtWidgets.QAction('Сохранить настройки')
+        self.action_addRow = QtWidgets.QAction('Добавить строку')  #
+        self.action_removeRow = QtWidgets.QAction('Удалить строку')  #
+        self.action_saveTariff = QtWidgets.QAction('Сохранить тариф')  #
+        self.action_saveSettings = QtWidgets.QAction('Сохранить настройки')  #
 
         #
         self.tableView_settingTariff.addAction(self.action_addRow)
@@ -92,8 +95,6 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.tariffsList = []  # для временного хранения списка тарифов
         self.current_index = None  # для хранения выбранного индекса comboBox
         self.settingTariffDict = {}  # для хранения настроек тарифов
-        self.f_salary_dict = {}
-        self.payOut_dict = {}
         self.dateMonth = {}  # словарь для хранения данных по сменам за месяц
 
         # настройка dateEdit
@@ -142,16 +143,16 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
             tariff_list: List[Any] = list(tariff_dict.values())  # список для настроек тарифов
             for row in range(len(tariff_dict)):  # цикл для заполнения таблицы
                 if type(tariff_list[row]) == list:
-                    percent_list = ''
-                    percent_list_final = ''
-                    for j in range(len(tariff_list[row])):
-                        percent = str(tariff_list[row][j] * 100)
-                        percent_list += percent + ' / '
-                        percent_list_final = percent_list[:-3]
-                    item_l0 = QtGui.QStandardItem(str(tariff_keys[row]))
-                    item_l1 = QtGui.QStandardItem(percent_list_final)
-                    self.table_settingTariffsModel.setItem(row, 0, item_l0)
-                    self.table_settingTariffsModel.setItem(row, 1, item_l1)
+                    percent_list = ''  #
+                    percent_list_final = ''  #
+                    for j in range(len(tariff_list[row])):  #
+                        percent = str(tariff_list[row][j] * 100)  #
+                        percent_list += percent + ' / '  #
+                        percent_list_final = percent_list[:-3]  #
+                    item_l0 = QtGui.QStandardItem(str(tariff_keys[row]))  #
+                    item_l1 = QtGui.QStandardItem(percent_list_final)  #
+                    self.table_settingTariffsModel.setItem(row, 0, item_l0)  #
+                    self.table_settingTariffsModel.setItem(row, 1, item_l1)  #
                 else:
                     item_0 = QtGui.QStandardItem(str(tariff_keys[row]))  # модель для заполнения первой колонки
                     item_1 = QtGui.QStandardItem(str(tariff_list[row] * 100))  # модель для заполнения
@@ -167,9 +168,9 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         except(FileNotFoundError, EOFError):
             # диалоговое окно с информацией о отсутствии смен в текущем месяце
             create_dialog_message(splash, 'Нет смен в текущем месяце.', 'Создайте смены или загрузите другой месяц.')
-        # если файл существует то заполняем таблицу смен
         except _pickle.UnpicklingError:
             create_dialog_message(splash, 'Файл повреждён!!!', 'Требуется восстановление файла')
+        # если файл существует то заполняем таблицу смен
         else:
             shiftsNameList = list(self.dateMonth.keys())  # список названий смен
             self.StIM_shiftsTable.setHorizontalHeaderLabels(shiftsNameList)  # список горизонтальных заголовков
@@ -183,23 +184,19 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
                     # данными по сменам
             # расчитываем выплаты и долг
             name_month = name_month_list('save_dates')  # получаем названия файлов месяцев
-            for i in range(len(name_month)):
-                dateMonth = load_data_file(name_month[i] + '.txt')
-                salary_list = []
-                payOut_list = []
-                key_dateMonth: str
-                for key_dateMonth in dateMonth.keys():
-                    salary_list.append(Decimal(dateMonth[key_dateMonth][8]))
-                    payOut_list.append(Decimal(dateMonth[key_dateMonth][9]))
-                    f_salary_dict = dict(zip(list(self.dateMonth.keys()), salary_list))
-                    payOut_dict = dict(zip(list(self.dateMonth.keys()), payOut_list))
-                    self.f_salary_dict.update(f_salary_dict)
-                    self.payOut_dict.update(payOut_dict)
-                f_salary = sum(self.f_salary_dict.values())
-                payOut = sum(self.payOut_dict.values())
-                self.label_debt.setText(str(f_salary - payOut))
-                self.label_salary.setText(str(f_salary))
-                self.label_payOut.setText(str(payOut))
+            for i in range(len(name_month)):  #
+                dateMonth = load_data_file(name_month[i] + '.txt')  #
+                salary_list = []  #
+                payOut_list = []  #
+                key_dateMonth: str  #
+                for key_dateMonth in dateMonth.keys():  #
+                    salary_list.append(Decimal(dateMonth[key_dateMonth][8]))  #
+                    payOut_list.append(Decimal(dateMonth[key_dateMonth][9]))  #
+                f_salary = Decimal(sum(salary_list))  #
+                payOut = Decimal(sum(payOut_list))  #
+                self.label_debt.setText(str(f_salary - payOut))  #
+                self.label_salary.setText(str(f_salary))  #
+                self.label_payOut.setText(str(payOut))  #
 
             # заполняем comboBox названиями месяцев
             self.comboBox_selectedMonth.addItems(name_month)
@@ -219,19 +216,17 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.action_calculationShift.triggered.connect(self.calculatedShift)  # расчитываем смену
         self.action_saveData.triggered.connect(self.save_dates)  # сохраняем данные по сменам
         self.action_removeShift.triggered.connect(self.removeShift_tableShifts)  # удаляем смену
-        self.pushButton_calculation.clicked.connect(self.calculate_dept)
-        self.action_addMonth.triggered.connect(self.add_month)
-        self.action_removeMonth.triggered.connect(self.remove_month)
+        self.pushButton_calculation.clicked.connect(self.calculate_dept)  #
+        self.action_addMonth.triggered.connect(self.add_month)  #
+        self.action_removeMonth.triggered.connect(self.remove_month)  #
 
-        # метод добавляет новый тариф в comboBox
-
+    # метод добавляет новый тариф в comboBox
     def add_new_tariff(self):
-        self.comboBox_selectTariff.blockSignals(True)
+        self.comboBox_selectTariff.blockSignals(True)  #
         self.comboBox_selectTariff.setEditable(True)  # разрешение на редактирование
         self.comboBox_selectTariff.setEditText('Новый тариф')  # добавляем "Новый тариф"
 
-        # метод удаляет тариф
-
+    # метод удаляет тариф
     def remove_tariff(self):
         ind = self.comboBox_selectTariff.currentIndex()  # индекс выбранного тарифа
         if self.comboBox_selectTariff.currentText() in self.settingTariffDict:  # если название тарифа есть в списке то
@@ -240,91 +235,86 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
 
     # метод добавляет строку в таблицу настроек тарифов
     def tableTariff_addRow(self):
-        L = []
-        for i in range(0, 2):
-            L.append(QtGui.QStandardItem('0'))
-        self.table_settingTariffsModel.appendRow(L)
+        L = []  #
+        for i in range(0, 2):  #
+            L.append(QtGui.QStandardItem('0'))  #
+        self.table_settingTariffsModel.appendRow(L)  #
 
     # метод удаляет выбранную строку из таблицы настроек тарифов
     def tableTariff_removeRow(self):
-        ind_remove = self.tableViewSetting.currentIndex()
-        if ind_remove.isValid():
-            self.table_settingTariffsModel.removeRow(ind_remove.row())
+        ind_remove = self.tableViewSetting.currentIndex()  #
+        if ind_remove.isValid():  #
+            self.table_settingTariffsModel.removeRow(ind_remove.row())  #
 
     # метод сохраняет настройки тарифа в settingTariffDict
     def tableTariff_saveTariff(self):
-        key_list = []
-        date_list = []
-        settingDateDict = {}
-        ind = QtCore.QModelIndex()
-        for i in range(0, self.table_settingTariffsModel.rowCount(ind)):
-            if '/' in self.table_settingTariffsModel.index(i, 1).data():
-                percent_list = str(self.table_settingTariffsModel.index(i, 1).data()).split(sep='/')
-                percent_list[0] = Decimal(percent_list[0].replace(',', '.')) / Decimal(100)
-                percent_list[1] = Decimal(percent_list[1].replace(',', '.')) / Decimal(100)
-                settingDateDict[self.table_settingTariffsModel.index(i, 0).data()] = percent_list
+        key_list = []  #
+        date_list = []  #
+        settingDateDict = {}  #
+        ind = QtCore.QModelIndex()  #
+        for i in range(0, self.table_settingTariffsModel.rowCount(ind)):  #
+            if '/' in self.table_settingTariffsModel.index(i, 1).data():  #
+                percent_list = str(self.table_settingTariffsModel.index(i, 1).data()).split(sep='/')  #
+                percent_list[0] = Decimal(percent_list[0].replace(',', '.')) / Decimal(100)  #
+                percent_list[1] = Decimal(percent_list[1].replace(',', '.')) / Decimal(100)  #
+                settingDateDict[self.table_settingTariffsModel.index(i, 0).data()] = percent_list  #
             else:
                 date_list.append(Decimal(str(self.table_settingTariffsModel.index(i, 1).data()).replace(',', '.')) /
-                                 Decimal(100))
-                key_list.append(str(self.table_settingTariffsModel.index(i, 0).data()))
-        settingDateDict1 = dict(zip(key_list, date_list))
-        settingDateDict1.update(settingDateDict)
-        self.settingTariffDict.update({self.comboBox_selectTariff.currentText(): settingDateDict1})
-        self.comboBox_setting.blockSignals(False)
-        return self.settingTariffDict
+                                 Decimal(100))  #
+                key_list.append(str(self.table_settingTariffsModel.index(i, 0).data()))  #
+        settingDateDict1 = dict(zip(key_list, date_list))  #
+        settingDateDict1.update(settingDateDict)  #
+        self.settingTariffDict.update({self.comboBox_selectTariff.currentText(): settingDateDict1})  #
+        self.comboBox_setting.blockSignals(False)  #
+        return self.settingTariffDict  #
 
-        # метод сохраняет настройки тарифов в файлы
-
+    # метод сохраняет настройки тарифов в файлы
     def saveSettings(self):
-        save_data_files('settingTariffDict.txt', self.settingTariffDict)
-        save_data_files('comboBox_currentIndex.txt', self.comboBox_setting.currentIndex())
+        save_data_files('settingTariffDict.txt', self.settingTariffDict)  #
+        save_data_files('comboBox_currentIndex.txt', self.comboBox_setting.currentIndex())  #
 
-        # метод активирует выбранный тариф и показывает его настройки
-
+    # метод активирует выбранный тариф и показывает его настройки
     def comboBox_setting_activated(self, v):
-        if v in self.settingTariffDict:
-            #
-            tariff_dict = self.settingTariffDict[v]
-            #
-            tariff_keys = list(tariff_dict.keys())
-            tariff_list = list(tariff_dict.values())
-            #
-            for row in range(len(tariff_dict)):
-                if type(tariff_list[row]) == list:
-                    percent_list = ''
-                    percent_list_final = ''
-                    for j in range(len(tariff_list[row])):
-                        percent = str(tariff_list[row][j] * 100)
-                        percent_list += percent + ' / '
-                        percent_list_final = percent_list[:-3].replace('.', ',')
-                    item_l0 = QtGui.QStandardItem(str(tariff_keys[row]))
-                    item_l1 = QtGui.QStandardItem(percent_list_final)
-                    self.table_settingTariffsModel.setItem(row, 0, item_l0)
-                    self.table_settingTariffsModel.setItem(row, 1, item_l1)
+        if v in self.settingTariffDict:  #
+            tariff_dict = self.settingTariffDict[v]  #
+            tariff_keys = list(tariff_dict.keys())  #
+            tariff_list = list(tariff_dict.values())  #
+            for row in range(len(tariff_dict)):  #
+                if type(tariff_list[row]) == list:  #
+                    percent_list = ''  #
+                    percent_list_final = ''  #
+                    for j in range(len(tariff_list[row])):  #
+                        percent = str(tariff_list[row][j] * 100)  #
+                        percent_list += percent + ' / '  #
+                        percent_list_final = percent_list[:-3].replace('.', ',')  #
+                    item_l0 = QtGui.QStandardItem(str(tariff_keys[row]))  #
+                    item_l1 = QtGui.QStandardItem(percent_list_final)  #
+                    self.table_settingTariffsModel.setItem(row, 0, item_l0)  #
+                    self.table_settingTariffsModel.setItem(row, 1, item_l1)  #
                 else:
-                    item_0 = QtGui.QStandardItem(str(tariff_keys[row]))
-                    item_1 = QtGui.QStandardItem(str(tariff_list[row] * 100).replace('.', ','))
-                    self.table_settingTariffsModel.setItem(row, 0, item_0)
-                    self.table_settingTariffsModel.setItem(row, 1, item_1)
+                    item_0 = QtGui.QStandardItem(str(tariff_keys[row]))  #
+                    item_1 = QtGui.QStandardItem(str(tariff_list[row] * 100).replace('.', ','))  #
+                    self.table_settingTariffsModel.setItem(row, 0, item_0)  #
+                    self.table_settingTariffsModel.setItem(row, 1, item_1)  #
 
-            ind = self.tableView_shifts.currentIndex()
-            sel = self.tableView_shifts.selectionModel()
-
-            if sel.isColumnSelected(ind.column(), QtCore.QModelIndex()):
+            ind = self.tableView_shifts.currentIndex()  #
+            sel = self.tableView_shifts.selectionModel()  #
+            if sel.isColumnSelected(ind.column(), QtCore.QModelIndex()):  #
                 self.StIM_shiftsTable.setItem(6, ind.column(), QtGui.QStandardItem(self.comboBox_setting.currentText()))
 
+    #
     def comboBox_selectedMonth_activated(self, v):
         try:
-            self.dateMonth = load_data_file(v + '.txt')
-        except(FileNotFoundError, EOFError):
+            self.dateMonth = load_data_file(v + '.txt')  #
+        except(FileNotFoundError, EOFError):  #
             # диалоговое окно с информацией о отсутствии смен в текущем месяце
             create_dialog_message(splash, 'Нет смен в выбраном месяце.', 'Попробуйте выбрать другой месяц.')
             # если файл существует то заполняем таблицу смен
-        except _pickle.UnpicklingError:
+        except _pickle.UnpicklingError:  #
             create_dialog_message(splash, 'Файл повреждён!!!', 'Требуется восстановление файла')
-        else:
+        else:  #
             index = QtCore.QModelIndex()  # просто индекс
-            self.StIM_shiftsTable.removeColumns(0, self.StIM_shiftsTable.columnCount(index), parent=index)
+            self.StIM_shiftsTable.removeColumns(0, self.StIM_shiftsTable.columnCount(index), parent=index)  #
             shiftsNameList = list(self.dateMonth.keys())  # список названий смен
             self.StIM_shiftsTable.setHorizontalHeaderLabels(shiftsNameList)  # список горизонтальных заголовков
             date_list = []  # список для временного хранения данных по сменам
@@ -335,115 +325,117 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
                     self.StIM_shiftsTable.setItem(row, j, QtGui.QStandardItem(date_list[j][row]))  # заполнение таблицы
                     # данными по сменам
             self.dateEdit_shifts.setDate(self.date_shift.today().replace(month=int(self.comboBox_selectedMonth.
-                                                                                   currentText()[:-3])))
+                                                                                   currentText()[:-3])))  #
 
+    #
     def add_month(self):
-        self.dateMonth = {}
-        save_data_files(self.dateEdit_shifts.text()[3:] + '.txt', self.dateMonth)
-        name_file = name_month_list('save_dates')
-        self.comboBox_selectedMonth.clear()
-        self.comboBox_selectedMonth.addItems(name_file)
+        self.dateMonth = {}  #
+        save_data_files(self.dateEdit_shifts.text()[3:] + '.txt', self.dateMonth)  #
+        name_file = name_month_list('save_dates')  #
+        self.comboBox_selectedMonth.clear()  #
+        self.comboBox_selectedMonth.addItems(name_file)  #
 
+    #
     def remove_month(self):
         index = QtCore.QModelIndex()  # просто индекс
-        self.StIM_shiftsTable.removeColumns(0, self.StIM_shiftsTable.columnCount(index), parent=index)
-        self.dateMonth = {}
-        os.remove(r'save_dates/' + self.dateEdit_shifts.text()[3:] + '.txt')
-        name_file = name_month_list('save_dates')
-        self.comboBox_selectedMonth.clear()
-        self.comboBox_selectedMonth.addItems(name_file)
+        self.StIM_shiftsTable.removeColumns(0, self.StIM_shiftsTable.columnCount(index), parent=index)  #
+        self.dateMonth = {}  #
+        os.remove(r'save_dates/' + self.dateEdit_shifts.text()[3:] + '.txt')  #
+        name_file = name_month_list('save_dates')  #
+        self.comboBox_selectedMonth.clear()  #
+        self.comboBox_selectedMonth.addItems(name_file)  #
 
     # метод добавлят смену в таблицу
     def addShift_tableShifts(self):
-        list_row = []
-        for i in range(0, 9):
-            list_row.append(QtGui.QStandardItem('0'))
-        list_row.insert(6, QtGui.QStandardItem(self.comboBox_selectTariff.currentText()))
-        self.StIM_shiftsTable.appendColumn(list_row)
-        index = QtCore.QModelIndex()
+        list_row = []  #
+        for i in range(0, 9):  #
+            list_row.append(QtGui.QStandardItem('0'))  #
+        list_row.insert(6, QtGui.QStandardItem(self.comboBox_selectTariff.currentText()))  #
+        self.StIM_shiftsTable.appendColumn(list_row)  #
+        index = QtCore.QModelIndex()  #
         self.StIM_shiftsTable.setHorizontalHeaderItem(self.StIM_shiftsTable.columnCount(index) - 1,
-                                                      QtGui.QStandardItem(self.dateEdit_shifts.text()))
+                                                      QtGui.QStandardItem(self.dateEdit_shifts.text()))  #
 
     #
     def removeShift_tableShifts(self):
-        index = self.tableView_shifts.currentIndex()
-        if index.isValid():
-            self.StIM_shiftsTable.removeColumn(index.column())
+        index = self.tableView_shifts.currentIndex()  #
+        if index.isValid():  #
+            self.StIM_shiftsTable.removeColumn(index.column())  #
 
     # метод расчитывает смену
     def calculatedShift(self):
-        coefficient = 0
-        key_reverse_dict = ''
-        ind = self.tableView_shifts.currentIndex()
-        sel = self.tableView_shifts.selectionModel()
+        coefficient = 0  #
+        key_reverse_dict = ''  #
+        ind = self.tableView_shifts.currentIndex()  #
+        sel = self.tableView_shifts.selectionModel()  #
 
-        if sel.isColumnSelected(ind.column(), QtCore.QModelIndex()):
+        if sel.isColumnSelected(ind.column(), QtCore.QModelIndex()):  #
             fullSalary = sum([Decimal(self.StIM_shiftsTable.index(0, ind.column()).data(role=0)),
                               Decimal(self.StIM_shiftsTable.index(1, ind.column()).data(role=0)),
-                              Decimal(self.StIM_shiftsTable.index(2, ind.column()).data(role=0))])
-            self.StIM_shiftsTable.setItem(5, ind.column(), QtGui.QStandardItem(str(fullSalary)))
-            reverse_dict = self.settingTariffDict[self.comboBox_selectTariff.currentText()]
-            for key_reverse_dict in sorted(reverse_dict, reverse=True):
-                if Decimal(fullSalary) >= Decimal(key_reverse_dict):
-                    coefficient = reverse_dict[key_reverse_dict]
+                              Decimal(self.StIM_shiftsTable.index(2, ind.column()).data(role=0))])  #
+            self.StIM_shiftsTable.setItem(5, ind.column(), QtGui.QStandardItem(str(fullSalary)))  #
+            reverse_dict = self.settingTariffDict[self.comboBox_selectTariff.currentText()]  #
+            for key_reverse_dict in sorted(reverse_dict, reverse=True):  #
+                if Decimal(fullSalary) >= Decimal(key_reverse_dict):  #
+                    coefficient = reverse_dict[key_reverse_dict]  #
                     break
 
-            if type(coefficient) == list:
-                over_plan = fullSalary - Decimal(key_reverse_dict)
-                my_percent = Decimal(key_reverse_dict) * coefficient[0] + over_plan * coefficient[1]
-                self.StIM_shiftsTable.setItem(7, ind.column(), QtGui.QStandardItem(str(my_percent)))
-            else:
-                my_percent = Decimal(fullSalary) * Decimal(coefficient)
-                self.StIM_shiftsTable.setItem(7, ind.column(), QtGui.QStandardItem(str(my_percent)))
+            if type(coefficient) == list:  #
+                over_plan = fullSalary - Decimal(key_reverse_dict)  #
+                my_percent = Decimal(key_reverse_dict) * coefficient[0] + over_plan * coefficient[1]  #
+                self.StIM_shiftsTable.setItem(7, ind.column(), QtGui.QStandardItem(str(my_percent)))  #
+            else:  #
+                my_percent = Decimal(fullSalary) * Decimal(coefficient)  #
+                self.StIM_shiftsTable.setItem(7, ind.column(), QtGui.QStandardItem(str(my_percent)))  #
             my_salary = my_percent - Decimal(self.StIM_shiftsTable.index(3, ind.column()).data(role=0)) - \
-                        Decimal(self.StIM_shiftsTable.index(4, ind.column()).data(role=0))
-            self.StIM_shiftsTable.setItem(8, ind.column(), QtGui.QStandardItem(str(my_salary)))
+                        Decimal(self.StIM_shiftsTable.index(4, ind.column()).data(role=0))  #
+            self.StIM_shiftsTable.setItem(8, ind.column(), QtGui.QStandardItem(str(my_salary)))  #
             self.StIM_shiftsTable.setItem(6, ind.column(), QtGui.QStandardItem(self.comboBox_selectTariff.
-                                                                               currentText()))
+                                                                               currentText()))  #
+        #
         else:
             QtWidgets.QMessageBox.information(splash, "Предупреждение",
                                               "Пожалуйста выберите смену для расчёта",
                                               buttons=QtWidgets.QMessageBox.Close,
-                                              defaultButton=QtWidgets.QMessageBox.Close)
+                                              defaultButton=QtWidgets.QMessageBox.Ok)
 
+    # расчитываем выплаты и долг
     def calculate_dept(self):
-        # расчитываем выплаты и долг
-        self.f_salary_dict = {}
-        self.payOut_dict = {}
-        salary_list = []
-        payOut_list = []
-        key_dateMonth: str
+        salary_list = []  #
+        payOut_list = []  #
+        key_dateMonth: str  #
         name_month = name_month_list('save_dates')  # получаем названия файлов месяцев
-        for i in range(len(name_month)):
-            dateMonth = load_data_file(name_month[i] + '.txt')
-            for key_dateMonth in dateMonth.keys():
-                salary_list.append(Decimal(dateMonth[key_dateMonth][8]))
-                payOut_list.append(Decimal(dateMonth[key_dateMonth][9]))
-        f_salary = Decimal(sum(salary_list))
-        payOut = Decimal(sum(payOut_list))
-        self.label_debt.setText(str(f_salary - payOut))
-        self.label_salary.setText(str(f_salary))
-        self.label_payOut.setText(str(payOut))
+        for i in range(len(name_month)):  #
+            dateMonth = load_data_file(name_month[i] + '.txt')  #
+            for key_dateMonth in dateMonth.keys():  #
+                salary_list.append(Decimal(dateMonth[key_dateMonth][8]))  #
+                payOut_list.append(Decimal(dateMonth[key_dateMonth][9]))  #
+        f_salary = Decimal(sum(salary_list))  #
+        payOut = Decimal(sum(payOut_list))  #
+        self.label_debt.setText(str(f_salary - payOut))  #
+        self.label_salary.setText(str(f_salary))  #
+        self.label_payOut.setText(str(payOut))  #
 
+    #
     def save_dates(self):
-        index = QtCore.QModelIndex()
-        date_shifts = []
-        shift_name_list = []
-        for j in range(self.StIM_shiftsTable.columnCount(index)):
-            shift_name_list.append(self.StIM_shiftsTable.horizontalHeaderItem(j).text())
+        index = QtCore.QModelIndex()  #
+        date_shifts = []  #
+        shift_name_list = []  #
+        for j in range(self.StIM_shiftsTable.columnCount(index)):  #
+            shift_name_list.append(self.StIM_shiftsTable.horizontalHeaderItem(j).text())  #
 
-        for j in range(self.StIM_shiftsTable.columnCount(index)):
-            date_shift = []
-            for i in range(self.StIM_shiftsTable.rowCount(index)):
-                date_shift.append(self.StIM_shiftsTable.index(i, j).data())
-            date_shifts.append(date_shift)
-        self.dateMonth = dict(zip(shift_name_list, date_shifts))
+        for j in range(self.StIM_shiftsTable.columnCount(index)):  #
+            date_shift = []  #
+            for i in range(self.StIM_shiftsTable.rowCount(index)):  #
+                date_shift.append(self.StIM_shiftsTable.index(i, j).data())  #
+            date_shifts.append(date_shift)  #
+        self.dateMonth = dict(zip(shift_name_list, date_shifts))  #
 
-        save_data_files(self.dateEdit_shifts.text()[3:] + '.txt', self.dateMonth)
+        save_data_files(self.dateEdit_shifts.text()[3:] + '.txt', self.dateMonth)  #
 
-        name_file = name_month_list('save_dates')
-        self.comboBox_selectedMonth.clear()
-        self.comboBox_selectedMonth.addItems(name_file)
+        name_file = name_month_list('save_dates')  #
+        self.comboBox_selectedMonth.clear()  #
+        self.comboBox_selectedMonth.addItems(name_file)  #
 
 
 if __name__ == "__main__":
