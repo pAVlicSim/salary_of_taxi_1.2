@@ -26,27 +26,27 @@ def load_data_file(a):
     return b
 
 
-#
+# сохраняет данные в файл
 def save_data_files(a, b):
-    f = open('save_dates/' + a, 'wb')  #
-    pickle.dump(b, f)  #
-    f.close()  #
+    f = open('save_dates/' + a, 'wb')  # открывает файл
+    pickle.dump(b, f)  # записывает данные в файл
+    f.close()  # закрывает файл
 
 
-#
+# создаёт инфориационное сообщение
 def create_dialog_message(a, b, c):
     QtWidgets.QMessageBox.information(a, b, c, defaultButton=QtWidgets.QMessageBox.Ok)
 
 
-#
+# возвращает список файлов месяцев рабочих смен
 def name_month_list(a: str):
-    names_files_list = os.listdir(a)  #
-    name_file = []  #
-    for i in range(len(names_files_list)):  #
-        if re.search('\d+', names_files_list[i]) is not None:  #
-            name_file.append(names_files_list[i][:-4])  #
-    name_file.sort()  #
-    return name_file  #
+    names_files_list = os.listdir(a)  # возвращает список всех файлов в в папке
+    name_file = []  # список для файлов месяцев
+    for i in range(len(names_files_list)):  # перебирает список всех файлов
+        if re.search('\d+', names_files_list[i]) is not None:  # если в названии файла есть цифры
+            name_file.append(names_files_list[i][:-4])  # имя файла добавляется в список
+    name_file.sort()  # сортируем список
+    return name_file
 
 
 class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
@@ -55,12 +55,12 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.setupUi(self)
 
         # действия для таблицы смен
-        self.action_addShift = QtWidgets.QAction('Добавить смену')  #
-        self.action_removeShift = QtWidgets.QAction('Удалить смену')  #
-        self.action_addMonth = QtWidgets.QAction('Добавить месяц')  #
-        self.action_removeMonth = QtWidgets.QAction('Удалить месяц')  #
-        self.action_calculationShift = QtWidgets.QAction('Расчитать смену')  #
-        self.action_saveData = QtWidgets.QAction('Сохранить данные')  #
+        self.action_addShift = QtWidgets.QAction('Добавить смену')  # действие для создания смены в таблице
+        self.action_removeShift = QtWidgets.QAction('Удалить смену')  # действие для удаления смены
+        self.action_addMonth = QtWidgets.QAction('Добавить месяц')  # действие для добавления месяца
+        self.action_removeMonth = QtWidgets.QAction('Удалить месяц')  # действие для удаления месяца
+        self.action_calculationShift = QtWidgets.QAction('Расчитать смену')  # действие для расчёта смены
+        self.action_saveData = QtWidgets.QAction('Сохранить данные')  # действие для сохраненя данных
 
         # подключаем действия к таблице
         self.tableView_shifts.addAction(self.action_addShift)
@@ -71,9 +71,9 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.tableView_shifts.addAction(self.action_saveData)
 
         # действия для comboBox_setting
-        self.action_addTariff = QtWidgets.QAction('Добавить тариф')  #
-        self.action_removeTariff = QtWidgets.QAction('Удалить тариф')  #
-        self.action_saveTariffName = QtWidgets.QAction('Сохранить название тарифа')  #
+        self.action_addTariff = QtWidgets.QAction('Добавить тариф')  # добавление еарифа
+        self.action_removeTariff = QtWidgets.QAction('Удалить тариф')  # удаление тарифа
+        self.action_saveTariffName = QtWidgets.QAction('Сохранить название тарифа')  # сохраняет тариф
 
         # добавляем действия в comboBox
         self.comboBox_selectTariff.addAction(self.action_addTariff)
@@ -81,12 +81,12 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.comboBox_selectTariff.addAction(self.action_saveTariffName)
 
         # действия для таблицы настроек
-        self.action_addRow = QtWidgets.QAction('Добавить строку')  #
-        self.action_removeRow = QtWidgets.QAction('Удалить строку')  #
-        self.action_saveTariff = QtWidgets.QAction('Сохранить тариф')  #
-        self.action_saveSettings = QtWidgets.QAction('Сохранить настройки')  #
+        self.action_addRow = QtWidgets.QAction('Добавить строку')  # добавляет строку
+        self.action_removeRow = QtWidgets.QAction('Удалить строку')  # удаляет строку
+        self.action_saveTariff = QtWidgets.QAction('Сохранить тариф')  # сохраняет тариф
+        self.action_saveSettings = QtWidgets.QAction('Сохранить настройки')  # сохраняет данные настроек
 
-        #
+        # подключаем действия к таблице
         self.tableView_settingTariff.addAction(self.action_addRow)
         self.tableView_settingTariff.addAction(self.action_removeRow)
         self.tableView_settingTariff.addAction(self.action_saveTariff)
@@ -211,6 +211,7 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.action_addRow.triggered.connect(self.tableTariff_addRow)  # добавляет строку в таблицу
         self.action_removeRow.triggered.connect(self.tableTariff_removeRow)  # удаляет строку из таблицы
         self.action_saveTariff.triggered.connect(self.tableTariff_saveTariff)  # сожраняет настройки тарифов в словарь
+        self.action_saveTariffName.triggered.connect(self.tableTariff_saveTariff)
         self.action_saveSettings.triggered.connect(self.saveSettings)  # сохранят настройки тарифов и программы
         self.action_addShift.triggered.connect(self.addShift_tableShifts)  # добавляем смену
         self.action_calculationShift.triggered.connect(self.calculatedShift)  # расчитываем смену
@@ -225,6 +226,9 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.comboBox_selectTariff.blockSignals(True)  #
         self.comboBox_selectTariff.setEditable(True)  # разрешение на редактирование
         self.comboBox_selectTariff.setEditText('Новый тариф')  # добавляем "Новый тариф"
+        index_clear = QtCore.QModelIndex()
+        self.table_settingTariffsModel.removeRows(0, self.table_settingTariffsModel.rowCount(index_clear),
+                                                  parent=index_clear)
 
     # метод удаляет тариф
     def remove_tariff(self):
@@ -265,17 +269,21 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         settingDateDict1 = dict(zip(key_list, date_list))  #
         settingDateDict1.update(settingDateDict)  #
         self.settingTariffDict.update({self.comboBox_selectTariff.currentText(): settingDateDict1})  #
-        self.comboBox_setting.blockSignals(False)  #
+        self.comboBox_selectTariff.blockSignals(False)  #
+        self.comboBox_selectTariff.setEditable(False)  #
         return self.settingTariffDict  #
 
     # метод сохраняет настройки тарифов в файлы
     def saveSettings(self):
         save_data_files('settingTariffDict.txt', self.settingTariffDict)  #
-        save_data_files('comboBox_currentIndex.txt', self.comboBox_setting.currentIndex())  #
+        save_data_files('comboBox_currentIndex.txt', self.comboBox_selectTariff.currentIndex())  #
 
     # метод активирует выбранный тариф и показывает его настройки
     def comboBox_setting_activated(self, v):
         if v in self.settingTariffDict:  #
+            index_clear = QtCore.QModelIndex()
+            self.table_settingTariffsModel.removeRows(0, self.table_settingTariffsModel.rowCount(index_clear),
+                                                      parent=index_clear)
             tariff_dict = self.settingTariffDict[v]  #
             tariff_keys = list(tariff_dict.keys())  #
             tariff_list = list(tariff_dict.values())  #
@@ -300,7 +308,8 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
             ind = self.tableView_shifts.currentIndex()  #
             sel = self.tableView_shifts.selectionModel()  #
             if sel.isColumnSelected(ind.column(), QtCore.QModelIndex()):  #
-                self.StIM_shiftsTable.setItem(6, ind.column(), QtGui.QStandardItem(self.comboBox_setting.currentText()))
+                self.StIM_shiftsTable.setItem(6, ind.column(), QtGui.QStandardItem(self.comboBox_selectTariff.
+                                                                                   currentText()))
 
     #
     def comboBox_selectedMonth_activated(self, v):
