@@ -27,7 +27,7 @@ QPushButton {
     border-radius: 4px;
     border-color: #759685;
     font: bold italic 14px C059;
-    max-width: 5px;
+    max-width: 200px;
     padding: 4px;
 }
 
