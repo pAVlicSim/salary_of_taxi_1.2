@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>864</width>
-    <height>505</height>
+    <width>800</width>
+    <height>492</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -43,6 +43,9 @@
   <property name="tabletTracking">
    <bool>false</bool>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::ActionsContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>Моя зарплата в такси</string>
   </property>
@@ -60,153 +63,159 @@
      <bold>true</bold>
     </font>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
-    <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>200</width>
-        <height>400</height>
-       </size>
-      </property>
-      <property name="baseSize">
-       <size>
-        <width>300</width>
-        <height>500</height>
-       </size>
-      </property>
-      <property name="tabPosition">
-       <enum>QTabWidget::West</enum>
-      </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="2" column="0">
+     <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
        <number>1</number>
       </property>
-      <property name="tabsClosable">
-       <bool>true</bool>
-      </property>
-      <property name="tabBarAutoHide">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>Настройки тарифа</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <widget class="QWidget" name="page_salary">
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0,0">
-          <property name="spacing">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="leftMargin">
            <number>10</number>
           </property>
-          <property name="sizeConstraint">
-           <enum>QLayout::SetFixedSize</enum>
-          </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
           <property name="topMargin">
-           <number>5</number>
+           <number>10</number>
           </property>
           <property name="rightMargin">
-           <number>5</number>
+           <number>10</number>
           </property>
           <property name="bottomMargin">
-           <number>6</number>
+           <number>10</number>
           </property>
           <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Расчет зарплаты</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_8">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Minimum</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>15</width>
+              <height>15</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QLabel" name="label_2">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
             <property name="text">
-             <string>Выбор тарифа</string>
+             <string>Зарплата</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox_selectTariff">
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="contextMenuPolicy">
-             <enum>Qt::ActionsContextMenu</enum>
-            </property>
-            <property name="editable">
-             <bool>false</bool>
-            </property>
-            <property name="maxVisibleItems">
-             <number>5</number>
-            </property>
-            <property name="maxCount">
-             <number>10</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_3">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Настройки тарифа</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTableView" name="tableView_settingTariff">
+           <widget class="QLabel" name="label_salary">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
             <property name="minimumSize">
              <size>
-              <width>200</width>
-              <height>200</height>
+              <width>150</width>
+              <height>35</height>
              </size>
             </property>
-            <property name="maximumSize">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Minimum</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
              <size>
-              <width>200</width>
-              <height>400</height>
+              <width>20</width>
+              <height>15</height>
              </size>
             </property>
-            <property name="contextMenuPolicy">
-             <enum>Qt::ActionsContextMenu</enum>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Выплаты</string>
             </property>
-            <property name="alternatingRowColors">
-             <bool>true</bool>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_payOut">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <property name="textElideMode">
-             <enum>Qt::ElideMiddle</enum>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>35</height>
+             </size>
             </property>
-            <attribute name="horizontalHeaderMinimumSectionSize">
-             <number>30</number>
-            </attribute>
-            <attribute name="horizontalHeaderDefaultSectionSize">
-             <number>90</number>
-            </attribute>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Minimum</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>15</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Долг</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_debt">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
            </widget>
           </item>
           <item>
@@ -217,22 +226,41 @@
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>40</height>
+              <height>30</height>
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_calculation">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="text">
+             <string>Рсчитать</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Зарплата</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <widget class="QWidget" name="page_percent">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,0,0,0,0,0,0,0,0">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="leftMargin">
            <number>10</number>
           </property>
@@ -247,44 +275,47 @@
           </property>
           <item>
            <widget class="QLabel" name="label_6">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
             <property name="text">
-             <string>Доход</string>
+             <string>Выбор тарифа</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_salary">
-            <property name="enabled">
-             <bool>true</bool>
+           <widget class="QComboBox" name="comboBox_selectTariff">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
             <property name="minimumSize">
              <size>
-              <width>0</width>
-              <height>30</height>
+              <width>150</width>
+              <height>35</height>
              </size>
             </property>
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
+            <property name="contextMenuPolicy">
+             <enum>Qt::ActionsContextMenu</enum>
             </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="buddy">
-             <cstring></cstring>
-            </property>
+            <item>
+             <property name="text">
+              <string>Новый элемент</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Новый элемент</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Новый элемент</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item>
-           <spacer name="verticalSpacer_4">
+           <spacer name="verticalSpacer_10">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
@@ -301,81 +332,82 @@
           </item>
           <item>
            <widget class="QLabel" name="label_7">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
             <property name="text">
-             <string>Выплаты</string>
+             <string>Настройки тарифа</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_payOut">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
+           <widget class="QTableView" name="tableView_settingTariff">
+            <property name="contextMenuPolicy">
+             <enum>Qt::ActionsContextMenu</enum>
             </property>
            </widget>
           </item>
-          <item>
-           <spacer name="verticalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_rent">
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <property name="leftMargin">
+           <number>10</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>10</number>
+          </property>
+          <property name="bottomMargin">
+           <number>10</number>
+          </property>
           <item>
            <widget class="QLabel" name="label_9">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
             <property name="text">
-             <string>Долг</string>
+             <string>Аренда</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_debt">
-            <property name="enabled">
-             <bool>true</bool>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
             <property name="minimumSize">
              <size>
-              <width>0</width>
-              <height>30</height>
+              <width>150</width>
+              <height>35</height>
              </size>
             </property>
-            <property name="text">
-             <string/>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>35</height>
+             </size>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="showGroupSeparator" stdset="0">
+             <bool>true</bool>
+            </property>
+            <property name="suffix">
+             <string>руб.</string>
+            </property>
+            <property name="maximum">
+             <double>5000.989999999999782</double>
             </property>
            </widget>
           </item>
@@ -385,7 +417,7 @@
              <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
+             <enum>QSizePolicy::Minimum</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -396,26 +428,152 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_calculation">
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>Процент компании</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
             <property name="minimumSize">
              <size>
-              <width>0</width>
-              <height>30</height>
+              <width>150</width>
+              <height>35</height>
              </size>
             </property>
-            <property name="text">
-             <string>Расчитать</string>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="suffix">
+             <string>%</string>
             </property>
            </widget>
           </item>
           <item>
-           <spacer name="verticalSpacer_2">
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_easy_rental">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <property name="leftMargin">
+           <number>10</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>10</number>
+          </property>
+          <property name="bottomMargin">
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Упрощёння аренда</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="suffix">
+             <string>руб.</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Minimum</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Процент компании</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="suffix">
+             <string>%</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_6">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
@@ -433,7 +591,59 @@
       </widget>
      </widget>
     </item>
-    <item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QRadioButton" name="radioButton_percent">
+         <property name="text">
+          <string>Проценты</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_rent">
+         <property name="text">
+          <string>Аренда</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_easy_rental">
+         <property name="text">
+          <string>Легкая аренда</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <spacer name="verticalSpacer_9">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="1" rowspan="2">
      <widget class="QWidget" name="widget" native="true">
       <property name="minimumSize">
        <size>
@@ -534,6 +744,12 @@
          </item>
          <item>
           <widget class="QTableView" name="tableView_shifts">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="contextMenuPolicy">
             <enum>Qt::ActionsContextMenu</enum>
            </property>
@@ -563,7 +779,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>864</width>
+     <width>800</width>
      <height>29</height>
     </rect>
    </property>
@@ -576,124 +792,40 @@
      <bold>true</bold>
     </font>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Покзать страницу</string>
+    </property>
+    <addaction name="action_rent"/>
+    <addaction name="action_easy_rental"/>
+    <addaction name="action_tariff"/>
+    <addaction name="action_salary"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="sizeGripEnabled">
     <bool>true</bool>
    </property>
   </widget>
-  <action name="action_addTariff">
+  <action name="action_rent">
    <property name="text">
-    <string>Добавить тариф</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>C059 [UKWN]</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
-    </font>
+    <string>Настройка аренды</string>
    </property>
   </action>
-  <action name="action_removeTariff">
+  <action name="action_easy_rental">
    <property name="text">
-    <string>Удалить тариф</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>C059 [UKWN]</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
-    </font>
+    <string>Настройка лёгкой аренды</string>
    </property>
   </action>
-  <action name="action_addRow">
+  <action name="action_salary">
    <property name="text">
-    <string>Добвить строку</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>C059 [UKWN]</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
-    </font>
+    <string>Расчёт зарплаты</string>
    </property>
   </action>
-  <action name="action_removeRow">
+  <action name="action_tariff">
    <property name="text">
-    <string>Удалить строку</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>C059 [UKWN]</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-  </action>
-  <action name="action_saveTariff">
-   <property name="text">
-    <string>Сохранить тариф</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>C059 [UKWN]</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-  </action>
-  <action name="action_saveSettings">
-   <property name="text">
-    <string>Сохранить настройки</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>C059 [UKWN]</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-  </action>
-  <action name="action_addShift">
-   <property name="text">
-    <string>Добавить смену</string>
-   </property>
-  </action>
-  <action name="action_removeShift">
-   <property name="text">
-    <string>Удалить смену</string>
-   </property>
-  </action>
-  <action name="action_calculationShift">
-   <property name="text">
-    <string>Расчитать смену</string>
-   </property>
-  </action>
-  <action name="action_saveData">
-   <property name="text">
-    <string>Сохранить данные</string>
-   </property>
-  </action>
-  <action name="action_addMonth">
-   <property name="text">
-    <string>Добавить месяц</string>
-   </property>
-  </action>
-  <action name="action_removeMonth">
-   <property name="text">
-    <string>Удалить месяц</string>
+    <string>Настройка тарифов</string>
    </property>
   </action>
  </widget>

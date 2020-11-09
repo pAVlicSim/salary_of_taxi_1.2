@@ -43,7 +43,7 @@ def name_month_list(a: str):
     names_files_list = os.listdir(a)  # возвращает список всех файлов в в папке
     name_file = []  # список для файлов месяцев
     for i in range(len(names_files_list)):  # перебирает список всех файлов
-        if re.search('\d+', names_files_list[i]) is not None:  # если в названии файла есть цифры
+        if re.search(r'\d+', names_files_list[i]) is not None:  # если в названии файла есть цифры
             name_file.append(names_files_list[i][:-4])  # имя файла добавляется в список
     name_file.sort()  # сортируем список
     return name_file
@@ -92,8 +92,7 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.tableView_settingTariff.addAction(self.action_saveTariff)
         self.tableView_settingTariff.addAction(self.action_saveSettings)
 
-        self.tariffsList = []  # для временного хранения списка тарифов
-        self.current_index = None  # для хранения выбранного индекса comboBox
+        self.current_index_comboBox = None  # для хранения выбранного индекса comboBox
         self.settingTariffDict = {}  # для хранения настроек тарифов
         self.dateMonth = {}  # словарь для хранения данных по сменам за месяц
 
@@ -122,10 +121,12 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         # строк к таблице
         self.tableView_shifts.setModel(self.StIM_shiftsTable)  # подключаем модель к таблице
 
+        self.stackedWidget.setCurrentIndex(0)  #
+
         # если файлы, с сохранёнными настройками, существуют то они загружаются для дальнейшего использования
         try:
             self.settingTariffDict = load_data_file('settingTariffDict.txt')  # открываем файл с настройками тарифа
-            self.current_index = load_data_file('comboBox_currentIndex.txt')  # открываем файл с настройкой
+            self.current_index_comboBox = load_data_file('comboBox_currentIndex.txt')  # открываем файл с настройкой
             # выбранного тарифа
         # если  файлов с настпройками тарифов нет, то выполняется этот код
         except (FileNotFoundError, EOFError):
@@ -134,7 +135,7 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         # если тарифы настроены то выполняется этот код
         else:
             self.comboBox_selectTariff.addItems(self.settingTariffDict.keys())  # заполнение comboBox названиями тарифов
-            self.comboBox_selectTariff.setCurrentIndex(self.current_index)  # настойка ранее выбраного тарифа
+            self.comboBox_selectTariff.setCurrentIndex(self.current_index_comboBox)  # настойка ранее выбраного тарифа
             tariff_dict = self.settingTariffDict[self.comboBox_selectTariff.currentText()]  # выбор соответствующих
             # данных
 
@@ -214,12 +215,28 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
         self.action_saveTariffName.triggered.connect(self.tableTariff_saveTariff)
         self.action_saveSettings.triggered.connect(self.saveSettings)  # сохранят настройки тарифов и программы
         self.action_addShift.triggered.connect(self.addShift_tableShifts)  # добавляем смену
-        self.action_calculationShift.triggered.connect(self.calculatedShift)  # расчитываем смену
+        self.action_calculationShift.triggered.connect(self.calculated_percentShift)  # расчитываем смену
         self.action_saveData.triggered.connect(self.save_dates)  # сохраняем данные по сменам
         self.action_removeShift.triggered.connect(self.removeShift_tableShifts)  # удаляем смену
         self.pushButton_calculation.clicked.connect(self.calculate_dept)  #
         self.action_addMonth.triggered.connect(self.add_month)  #
         self.action_removeMonth.triggered.connect(self.remove_month)  #
+        self.action_salary.triggered.connect(self.show_widget_salary)
+        self.action_tariff.triggered.connect(self.show_widget_settingTariff)
+        self.action_rent.triggered.connect(self.show_widget_rent)
+        self.action_easy_rental.triggered.connect(self.show_widget_easy_rental)
+
+    def show_widget_salary(self):
+        self.stackedWidget.setCurrentIndex(0)
+
+    def show_widget_settingTariff(self):
+        self.stackedWidget.setCurrentIndex(1)
+
+    def show_widget_rent(self):
+        self.stackedWidget.setCurrentIndex(2)
+
+    def show_widget_easy_rental(self):
+        self.stackedWidget.setCurrentIndex(3)
 
     # метод добавляет новый тариф в comboBox
     def add_new_tariff(self):
@@ -372,7 +389,7 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
             self.StIM_shiftsTable.removeColumn(index.column())  #
 
     # метод расчитывает смену
-    def calculatedShift(self):
+    def calculated_percentShift(self):
         coefficient = 0  #
         key_reverse_dict = ''  #
         ind = self.tableView_shifts.currentIndex()  #
@@ -396,8 +413,8 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
             else:  #
                 my_percent = Decimal(fullSalary) * Decimal(coefficient)  #
                 self.StIM_shiftsTable.setItem(7, ind.column(), QtGui.QStandardItem(str(my_percent)))  #
-            my_salary = my_percent - Decimal(self.StIM_shiftsTable.index(3, ind.column()).data(role=0)) - \
-                        Decimal(self.StIM_shiftsTable.index(4, ind.column()).data(role=0))  #
+            my_salary = (my_percent - Decimal(self.StIM_shiftsTable.index(3, ind.column()).data(role=0)) -
+                         Decimal(self.StIM_shiftsTable.index(4, ind.column()).data(role=0)))  #
             self.StIM_shiftsTable.setItem(8, ind.column(), QtGui.QStandardItem(str(my_salary)))  #
             self.StIM_shiftsTable.setItem(6, ind.column(), QtGui.QStandardItem(self.comboBox_selectTariff.
                                                                                currentText()))  #
@@ -407,6 +424,16 @@ class MyWindow(QtWidgets.QMainWindow, my_form.Ui_MainWindow):
                                               "Пожалуйста выберите смену для расчёта",
                                               buttons=QtWidgets.QMessageBox.Close,
                                               defaultButton=QtWidgets.QMessageBox.Ok)
+
+    def calculated_rentShift(self):
+        ind = self.tableView_shifts.currentIndex()  #
+        sel = self.tableView_shifts.selectionModel()  #
+
+        if sel.isColumnSelected(ind.column(), QtCore.QModelIndex()):  #
+            fullSalary = sum([Decimal(self.StIM_shiftsTable.index(0, ind.column()).data(role=0)),
+                              Decimal(self.StIM_shiftsTable.index(1, ind.column()).data(role=0)),
+                              Decimal(self.StIM_shiftsTable.index(2, ind.column()).data(role=0))])  #
+            self.StIM_shiftsTable.setItem(5, ind.column(), QtGui.QStandardItem(str(fullSalary)))  #
 
     # расчитываем выплаты и долг
     def calculate_dept(self):
